@@ -7,18 +7,25 @@ function loopRefresh() {
     $.getJSON(
         "https://gold.weicaifu.com/gold/goldTrend_1?" + new Date().getTime(),
         function(json) {
+            var max = json.body.max;
+            var min = json.body.min;
             var results = json.body.results;
             var length  = results.length;
             var price1  = results[length - 1];
             var price2  = results[length - 2];
             var price3  = results[length - 3];
             div.children("span").html(
-                "<a href='http://gold.weicaifu.com' target='_blank'>gold</a><br>"
+                "<a href='http://gold.weicaifu.com' target='_blank'>gold</a>"
+                + "&nbsp;<span class='max'>" + max + "</span>"
+                + "&nbsp;<span class='min'>" + min + "</span>"
+                + "<br>"
                 + convertPriceToHtml(price1) + "<br>"
                 + convertPriceToHtml(price2) + "<br>"
                 + convertPriceToHtml(price3)
-            )
-            .find(".price").css("font-weight", "bolder").css("color", "#993399");
+            );
+            div.find(".price").css("font-weight", "bolder").css("color", "#993399");
+            div.find(".max").css("color", "red");
+            div.find(".min").css("color", "green");
         }
     );
     t = setTimeout("loopRefresh()", 15000);
@@ -34,11 +41,11 @@ function convertPriceToHtml(price) {
 
 $(function() {
     div.appendTo("body").css("background-color", "rgba(255,255,210,0.85)")
-        .css("padding-left", "5px").css("text-align", "left")
+        .css("padding-left", "6px").css("text-align", "left")
         .css("position", "fixed").css("line-height", "normal")
         .css("font-size", "11px").css("font-family", "Tahoma")
         .css("left", "0px").css("bottom", "0px").css("z-index", "9999")
-        .css("width", "112px").css("height", "56px")
+        .css("width", "120px").css("height", "56px")
         .css("border", "2px solid #a1a1a1").css("border-bottom-style", "none")
         .css("border-radius", "0 6px 0 0");
 
