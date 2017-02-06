@@ -15,20 +15,33 @@ function loopRefresh() {
             var price2  = results[length - 2];
             var price3  = results[length - 3];
             div.children("span").html(
-                "<a href='http://gold.weicaifu.com' target='_blank'>gold</a>"
+                "<span class='out001a-head'>"
+                + "<a href='http://gold.weicaifu.com' target='_blank'>gold</a>"
+                + "&nbsp;<span class='cur'>" + price1.price + "</span>"
                 + "&nbsp;<span class='max'>" + max + "</span>"
                 + "&nbsp;<span class='min'>" + min + "</span>"
-                + "<br>"
+                + "</span><br>"
+                + "<span class='out001a-body'>"
                 + convertPriceToHtml(price1) + "<br>"
                 + convertPriceToHtml(price2) + "<br>"
                 + convertPriceToHtml(price3)
+                + "</span>"
             );
             div.find(".price").css("font-weight", "bolder").css("color", "#993399");
             div.find(".max").css("color", "red");
             div.find(".min").css("color", "green");
+            div.find(".cur").css("color", "#993399");
+
+            $(".out001a-head, .out001a-body").hover(function() {
+                $(".out001a-body").show();
+            }, function() {
+                $(".out001a-body").hide();
+            });
+            $(".out001a-body").hide();
         }
     );
-    t = setTimeout("loopRefresh()", 15000);
+
+    t = setTimeout("loopRefresh()", 12000);
 }
 
 function convertPriceToHtml(price) {
@@ -44,10 +57,10 @@ $(function() {
         .css("padding-left", "6px").css("text-align", "left")
         .css("position", "fixed").css("line-height", "normal")
         .css("font-size", "11px").css("font-family", "Tahoma")
-        .css("left", "0px").css("bottom", "0px").css("z-index", "9999")
-        .css("width", "120px").css("height", "56px")
+        .css("right", "0px").css("bottom", "0px").css("z-index", "9999")
+        .css("width", "150px")//.css("height", "56px")
         .css("border", "2px solid #a1a1a1").css("border-bottom-style", "none")
-        .css("border-radius", "0 6px 0 0");
+        .css("border-radius", "6px 0 0 0");
 
     loopRefresh();
 });
